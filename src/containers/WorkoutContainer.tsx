@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { WorkoutListType } from '../types/workout';
+import { WorkoutListType, WorkoutType } from '../types/workout';
 
 import styled from 'styled-components';
 import { Fab } from '@material-ui/core';
@@ -15,26 +15,36 @@ interface IWorkoutContainerProps {
 
 class WorkoutContainer extends Component<IWorkoutContainerProps> {
   state = {
-    isOpen: false
+    isOpen: false,
+    formData: null
   };
-  handleOpenWorkoutForm = () => {
+  handleOpenAddForm = () => {
     this.setState({ isOpen: true });
   };
+  handleOpenUpdateForm = (workout: WorkoutType) => {
+    this.setState({
+      isOpen: true,
+      formData: workout
+    });
+  };
   handleCloseWorkoutForm = () => {
-    this.setState({ isOpen: false });
+    this.setState({ isOpen: false, formData: null });
   };
   render() {
     const { workoutList } = this.props;
     return (
       <Template>
         <WorkoutContainerWrapper>
-          <WorkoutList list={workoutList} />
+          <WorkoutList
+            list={workoutList}
+            handleOpenUpdateForm={this.handleOpenUpdateForm}
+          />
           <AddButton>
             <Fab
               size="small"
               color="primary"
               aria-label="Add"
-              onClick={this.handleOpenWorkoutForm}
+              onClick={this.handleOpenAddForm}
             >
               <Add />
             </Fab>
@@ -42,6 +52,7 @@ class WorkoutContainer extends Component<IWorkoutContainerProps> {
           <WorkoutForm
             open={this.state.isOpen}
             onClose={this.handleCloseWorkoutForm}
+            formData={this.state.formData}
           />
         </WorkoutContainerWrapper>
       </Template>
