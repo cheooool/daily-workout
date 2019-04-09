@@ -1,10 +1,10 @@
 export type WorkoutType = {
-  id: any;
+  id?: any;
   parts?: string;
   name: string;
   type: WorkoutCheckboxListType;
   sets?: SetsType;
-  createdAt: any;
+  createdAt?: any;
 };
 
 export type WorkoutListType = WorkoutType[];
@@ -31,9 +31,21 @@ export type AddWorkoutActionType = {
   payload: WorkoutType;
 };
 
+export type DeleteWorkoutActionType = {
+  type: string;
+  payload: WorkoutType;
+};
+
+export type UpdateWorkoutActionType = {
+  type: string;
+  payload: WorkoutType;
+};
+
 export type WorkoutActionTypes =
   | RequestWorkoutActionType
-  | AddWorkoutActionType;
+  | AddWorkoutActionType
+  | DeleteWorkoutActionType
+  | UpdateWorkoutActionType;
 
 export interface IWorkoutState {
   workoutList: WorkoutListType;
