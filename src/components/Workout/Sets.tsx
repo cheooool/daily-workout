@@ -6,14 +6,14 @@ import {
   TableHead,
   TableRow
 } from '@material-ui/core';
-import { WorkoutType, SetsType } from '../../types/workout';
+import { SetsType, WorkoutCheckboxListType } from '../../types/workout';
 
 interface ISetsProps {
-  header: WorkoutType;
+  type: WorkoutCheckboxListType;
   data: SetsType;
 }
 
-const Sets: FunctionComponent<ISetsProps> = ({ header, data }) => {
+const Sets: FunctionComponent<ISetsProps> = ({ type, data }) => {
   return (
     <Table>
       <TableHead>
@@ -30,15 +30,15 @@ const Sets: FunctionComponent<ISetsProps> = ({ header, data }) => {
                 {index + 1}
               </TableCell>
               <TableCell component="td" scope="row" align="center">
-                {header.map((type, typeIndex) => {
+                {type.map((value, typeIndex) => {
                   return (
-                    type.checked && (
+                    value.checked && (
                       <div
                         key={`${index}-${typeIndex}`}
                         style={{ margin: '1em 0' }}
                       >
-                        <strong>{type.label.toUpperCase()}</strong>{' '}
-                        <span>{row[type.name]}</span>
+                        <strong>{value.label.toUpperCase()}</strong>{' '}
+                        <span>{row[value.name]}</span>
                       </div>
                     )
                   );

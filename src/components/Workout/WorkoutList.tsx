@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Workout from './Workout';
-import { IWorkout } from '../../types/workout';
+import { WorkoutListType } from '../../types/workout';
 
 interface IWorkoutListProps {
-  list: IWorkout[];
+  list: WorkoutListType;
 }
 
 class WorkoutList extends Component<IWorkoutListProps> {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { IWorkout } from '../types/workout';
+import { WorkoutListType } from '../types/workout';
 
 import styled from 'styled-components';
 import { Fab } from '@material-ui/core';
@@ -10,7 +10,7 @@ import WorkoutList from '../components/Workout/WorkoutList';
 import WorkoutForm from '../components/Workout/WorkoutForm';
 
 interface IWorkoutContainerProps {
-  workoutList: IWorkout[];
+  workoutList: WorkoutListType;
 }
 
 class WorkoutContainer extends Component<IWorkoutContainerProps> {

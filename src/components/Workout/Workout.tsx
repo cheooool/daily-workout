@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import { Typography } from '@material-ui/core';
-import { IWorkout } from '../../types/workout';
+import { WorkoutType } from '../../types/workout';
 
 import Sets from './Sets';
 
 interface IWorkoutProps {
-  data: IWorkout;
+  data: WorkoutType;
 }
 
 const Workout: FunctionComponent<IWorkoutProps> = ({ data }) => {
@@ -17,7 +17,7 @@ const Workout: FunctionComponent<IWorkoutProps> = ({ data }) => {
         <Typography variant="title">{data.name}</Typography>
       </WorkoutHeader>
       <hr />
-      <Sets header={data.type} data={data.sets || []} />
+      <Sets type={data.type} data={data.sets || []} />
     </WorkoutWrapper>
   );
 };

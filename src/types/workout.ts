@@ -1,29 +1,38 @@
-export interface IWorkout {
+export type WorkoutType = {
   id: any;
   parts?: string;
   name: string;
-  type: WorkoutType;
+  type: WorkoutCheckboxListType;
   sets?: SetsType;
   createdAt: any;
-}
+};
 
-export type WorkoutType = {
+export type WorkoutListType = WorkoutType[];
+
+export type WorkoutCheckboxType = {
   label: string;
   name: string;
   checked: boolean;
-}[];
+};
+
+export type WorkoutCheckboxListType = WorkoutCheckboxType[];
 
 export type SetsType = {
   [key: string]: any;
 }[];
 
 export interface IWorkoutState {
-  workoutList: IWorkout[];
+  workoutList: WorkoutListType;
 }
 
-export interface IRequestWorkoutAction {
+export type RequestWorkoutActionType = {
   type: string;
-  payload: IWorkout[];
-}
+  payload: WorkoutListType;
+};
 
-export type WorkoutActionTypes = IRequestWorkoutAction;
+export type AddWorkoutActionType = {
+  type: string;
+  payload: WorkoutType;
+};
+
+export type WorkoutActionTypes = RequestWorkoutActionType;

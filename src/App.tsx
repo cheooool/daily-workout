@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { IRootState } from './types/root';
-import { IWorkout } from './types/workout';
+import { WorkoutListType } from './types/workout';
 import { requestWorkouts } from './actions/workout';
 import data from './mock/data';
 
 import WorkoutContainer from './containers/WorkoutContainer';
 
 interface IAppProps {
-  workoutList: IWorkout[];
-  onRequestWorkouts: (list: IWorkout[]) => any;
+  workoutList: WorkoutListType;
+  onRequestWorkouts: (list: WorkoutListType) => any;
 }
 
 class App extends Component<IAppProps> {
@@ -34,7 +34,8 @@ const mapStateToProps = (state: IRootState) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    onRequestWorkouts: (list: IWorkout[]) => dispatch(requestWorkouts(list))
+    onRequestWorkouts: (list: WorkoutListType) =>
+      dispatch(requestWorkouts(list))
   };
 };
 
