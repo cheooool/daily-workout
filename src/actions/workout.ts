@@ -4,7 +4,7 @@ import {
   WorkoutActionTypes
 } from '../types/workout';
 
-export const REQUEST_WORKOUTS = 'GET_WORKOUTS';
+export const REQUEST_WORKOUTS = 'REQUEST_WORKOUTS';
 export const ADD_WORKOUT = 'ADD_WORKOUT';
 export const DELETE_WORKOUT = 'DELETE_WORKOUT';
 export const UPDATE_WORKOUT = 'UPDATE_WORKOUT';
