@@ -5,9 +5,7 @@ import { IWorkout } from './types/workout';
 import { requestWorkouts } from './actions/workout';
 import data from './mock/data';
 
-import Auth from './components/Auth/Auth';
-import WorkoutForm from './components/Workout/WorkoutForm';
-import WorkoutList from './components/Workout/WorkoutList';
+import WorkoutContainer from './containers/WorkoutContainer';
 
 interface IAppProps {
   workoutList: IWorkout[];
@@ -22,12 +20,7 @@ class App extends Component<IAppProps> {
     const { workoutList } = this.props;
     return (
       <div className="App">
-        <h1>Daily Workout</h1>
-        {/* {workoutList} */}
-        <WorkoutList list={workoutList} />
-        {/* <WorkoutForm />
-        
-        <Auth /> */}
+        <WorkoutContainer workoutList={workoutList} />
       </div>
     );
   }
