@@ -21,10 +21,6 @@ export type SetsType = {
   [key: string]: any;
 }[];
 
-export interface IWorkoutState {
-  workoutList: WorkoutListType;
-}
-
 export type RequestWorkoutActionType = {
   type: string;
   payload: WorkoutListType;
@@ -35,4 +31,10 @@ export type AddWorkoutActionType = {
   payload: WorkoutType;
 };
 
-export type WorkoutActionTypes = RequestWorkoutActionType;
+export type WorkoutActionTypes =
+  | RequestWorkoutActionType
+  | AddWorkoutActionType;
+
+export interface IWorkoutState {
+  workoutList: WorkoutListType;
+}

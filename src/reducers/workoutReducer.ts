@@ -1,6 +1,11 @@
-import { REQUEST_WORKOUTS } from '../actions/workout';
+import { REQUEST_WORKOUTS, ADD_WORKOUT } from '../actions/workout';
 
-import { WorkoutActionTypes, IWorkoutState } from '../types/workout';
+import {
+  WorkoutActionTypes,
+  IWorkoutState,
+  WorkoutListType,
+  WorkoutType
+} from '../types/workout';
 
 const initialState: IWorkoutState = {
   workoutList: []
@@ -14,7 +19,12 @@ const workoutReducer = (
     case REQUEST_WORKOUTS:
       return {
         ...state,
-        workoutList: [...action.payload]
+        workoutList: [...(action.payload as WorkoutListType)]
+      };
+    case ADD_WORKOUT:
+      return {
+        ...state,
+        workoutList: [...state.workoutList, action.payload as WorkoutType]
       };
     default:
       return state;
