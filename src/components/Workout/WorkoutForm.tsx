@@ -12,47 +12,68 @@ import {
   Switch
 } from '@material-ui/core';
 import { WorkoutType } from '../../types/workout';
-import { addWorkout } from '../../actions/workout';
+import { addWorkout, updateWorkout } from '../../actions/workout';
 
 interface IWorkoutFormProps {
   open: boolean;
+  formData: WorkoutType | null;
   onClose: () => void;
   addWorkout: (workout: WorkoutType) => void;
+  updateWorkout: (workout: WorkoutType) => void;
 }
 
 const initialState = {
-  parts: '',
-  name: '',
-  type: [
-    {
-      label: 'Weight',
-      name: 'weight',
-      checked: true
-    },
-    {
-      label: 'Reps',
-      name: 'reps',
-      checked: true
-    },
-    {
-      label: 'Time',
-      name: 'time',
-      checked: false
-    }
-  ]
+  type: 'add',
+  formData: {
+    parts: '',
+    name: '',
+    type: [
+      {
+        label: 'Weight',
+        name: 'weight',
+        checked: true
+      },
+      {
+        label: 'Reps',
+        name: 'reps',
+        checked: true
+      },
+      {
+        label: 'Time',
+        name: 'time',
+        checked: false
+      }
+    ]
+  }
 };
 
 class WorkoutForm extends Component<IWorkoutFormProps> {
   state = initialState;
 
+  static getDerivedStateFromProps(props: any, state: any) {
+    if (state.type !== 'update' && props.formData) {
+      return {
+        type: 'update',
+        formData: props.formData
+      };
+    }
+    // when null is returned no update is made to the state
+    return null;
+  }
+
   handleChangeText = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
-      [event.target.name]: event.target.value
+      formData: {
+        ...this.state.formData,
+        [event.target.name]: event.target.value
+      }
     });
   };
 
   handleCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { type } = this.state;
+    const {
+      formData: { type }
+    } = this.state;
     const newType = type.map(value => {
       if (value.name === event.target.name) {
         return {
@@ -63,31 +84,42 @@ class WorkoutForm extends Component<IWorkoutFormProps> {
       return value;
     });
     this.setState({
-      type: [...newType]
+      formData: {
+        ...this.state.formData,
+        type: [...newType]
+      }
     });
   };
 
   handleClose = () => {
     this.props.onClose();
+    this.setState(initialState);
   };
 
   handleSubmit = () => {
+    const { type, formData } = this.state;
     const workout: WorkoutType = {
-      id: Math.random(),
-      ...this.state,
-      createdAt: new Date().getTime()
+      ...formData
     };
 
     if (!this.isValid()) {
       return false;
     }
 
-    this.props.addWorkout(workout);
-    this.props.onClose();
+    if (type === 'add') {
+      workout['id'] = Math.random();
+      workout['createdAt'] = new Date().getTime();
+      this.props.addWorkout(workout);
+    } else if (type === 'update') {
+      this.props.updateWorkout(workout);
+    }
+    this.handleClose();
   };
 
   isValid = () => {
-    const { name, type } = this.state;
+    const {
+      formData: { name, type }
+    } = this.state;
     const checkName = name !== '';
     const checkType = type.some(value => value.checked === true);
     if (!checkName || !checkType) {
@@ -98,20 +130,22 @@ class WorkoutForm extends Component<IWorkoutFormProps> {
 
   render() {
     const { open } = this.props;
-    const { parts, name, type } = this.state;
+    const {
+      formData: { parts, name, type }
+    } = this.state;
     return (
       <Dialog open={open} keepMounted onClose={this.handleClose}>
         <DialogTitle>운동 추가</DialogTitle>
         <DialogContent>
           <TextField
-            label="부위"
+            label="운동부위"
             fullWidth={true}
             name="parts"
             value={parts}
             onChange={this.handleChangeText}
           />
           <TextField
-            label="운동"
+            label="운동명"
             fullWidth={true}
             name="name"
             value={name}
@@ -151,6 +185,7 @@ class WorkoutForm extends Component<IWorkoutFormProps> {
             color="primary"
             fullWidth={true}
             onClick={this.handleSubmit}
+            disabled={!this.isValid()}
           >
             추가
           </Button>
@@ -162,7 +197,8 @@ class WorkoutForm extends Component<IWorkoutFormProps> {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    addWorkout: (workout: WorkoutType) => dispatch(addWorkout(workout))
+    addWorkout: (workout: WorkoutType) => dispatch(addWorkout(workout)),
+    updateWorkout: (workout: WorkoutType) => dispatch(updateWorkout(workout))
   };
 };
 
