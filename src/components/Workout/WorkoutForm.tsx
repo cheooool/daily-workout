@@ -23,7 +23,7 @@ interface IWorkoutFormProps {
 }
 
 const initialState = {
-  type: 'add',
+  submitType: 'add',
   formData: {
     parts: '',
     name: '',
@@ -51,9 +51,9 @@ class WorkoutForm extends Component<IWorkoutFormProps> {
   state = initialState;
 
   static getDerivedStateFromProps(props: any, state: any) {
-    if (state.type !== 'update' && props.formData) {
+    if (state.submitType !== 'update' && props.formData) {
       return {
-        type: 'update',
+        submitType: 'update',
         formData: props.formData
       };
     }
@@ -97,7 +97,7 @@ class WorkoutForm extends Component<IWorkoutFormProps> {
   };
 
   handleSubmit = () => {
-    const { type, formData } = this.state;
+    const { submitType, formData } = this.state;
     const workout: WorkoutType = {
       ...formData
     };
@@ -106,11 +106,11 @@ class WorkoutForm extends Component<IWorkoutFormProps> {
       return false;
     }
 
-    if (type === 'add') {
+    if (submitType === 'add') {
       workout['id'] = Math.random();
       workout['createdAt'] = new Date().getTime();
       this.props.addWorkout(workout);
-    } else if (type === 'update') {
+    } else if (submitType === 'update') {
       this.props.updateWorkout(workout);
     }
     this.handleClose();
@@ -131,11 +131,12 @@ class WorkoutForm extends Component<IWorkoutFormProps> {
   render() {
     const { open } = this.props;
     const {
+      submitType,
       formData: { parts, name, type }
     } = this.state;
     return (
       <Dialog open={open} keepMounted onClose={this.handleClose}>
-        <DialogTitle>운동 추가</DialogTitle>
+        <DialogTitle>운동 {submitType === 'add' ? '추가' : '수정'}</DialogTitle>
         <DialogContent>
           <TextField
             label="운동부위"
@@ -187,7 +188,7 @@ class WorkoutForm extends Component<IWorkoutFormProps> {
             onClick={this.handleSubmit}
             disabled={!this.isValid()}
           >
-            추가
+            {submitType === 'add' ? '추가' : '수정'}
           </Button>
         </DialogActions>
       </Dialog>
