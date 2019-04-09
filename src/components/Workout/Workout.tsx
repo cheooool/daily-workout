@@ -17,7 +17,7 @@ const Workout: FunctionComponent<IWorkoutProps> = ({ data }) => {
         <Typography variant="title">{data.name}</Typography>
       </WorkoutHeader>
       <hr />
-      <Sets header={data.type} data={data.sets} />
+      <Sets header={data.type} data={data.sets || []} />
     </WorkoutWrapper>
   );
 };

@@ -3,7 +3,23 @@ const data = [
     id: 1,
     parts: 'Parts',
     name: 'Workout',
-    type: ['weight', 'reps'],
+    type: [
+      {
+        label: 'Weight',
+        name: 'weight',
+        checked: true
+      },
+      {
+        label: 'Reps',
+        name: 'reps',
+        checked: true
+      },
+      {
+        label: 'Time',
+        name: 'time',
+        checked: false
+      }
+    ],
     sets: [
       {
         weight: 50,
@@ -24,7 +40,23 @@ const data = [
     id: 2,
     parts: 'Parts2',
     name: 'Workout2',
-    type: ['weight', 'reps'],
+    type: [
+      {
+        label: 'Weight',
+        name: 'weight',
+        checked: true
+      },
+      {
+        label: 'Reps',
+        name: 'reps',
+        checked: true
+      },
+      {
+        label: 'Time',
+        name: 'time',
+        checked: false
+      }
+    ],
     sets: [
       {
         weight: 30,
@@ -45,7 +77,23 @@ const data = [
     id: 3,
     parts: 'Parts3',
     name: 'Workout3',
-    type: ['weight', 'reps'],
+    type: [
+      {
+        label: 'Weight',
+        name: 'weight',
+        checked: true
+      },
+      {
+        label: 'Reps',
+        name: 'reps',
+        checked: true
+      },
+      {
+        label: 'Time',
+        name: 'time',
+        checked: false
+      }
+    ],
     sets: [
       {
         weight: 50,
