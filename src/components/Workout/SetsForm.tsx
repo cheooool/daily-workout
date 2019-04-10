@@ -14,6 +14,7 @@ import {
 import { IRootState } from '../../types/root';
 import { WorkoutType, SetsDataType } from '../../types/workout';
 import { closeSetsForm, changeSetsValue } from '../../actions/setsForm';
+import { addSets, updateSets } from '../../actions/workout';
 
 interface ISetsFromProps {
   selectedSetsIndex: number;
@@ -22,6 +23,12 @@ interface ISetsFromProps {
   isOpen: boolean;
   closeSetsForm: () => void;
   changeSetsValue: (name: string, value: string) => void;
+  addSets: (workoutId: any, setsData: SetsDataType) => void;
+  updateSets: (
+    workoutId: any,
+    setsIndex: number,
+    setsData: SetsDataType
+  ) => void;
 }
 
 interface ISetsFromTitleProps {
@@ -58,12 +65,20 @@ class SetsForm extends Component<ISetsFromProps> {
     this.props.changeSetsValue(name, value);
   };
   handleSubmit = () => {
-    const { selectedSetsIndex } = this.props;
+    const {
+      selectedSetsIndex,
+      workoutData: { id },
+      formData
+    } = this.props;
 
     if (selectedSetsIndex !== -1) {
-      // 추가
-    } else {
       // 수정
+      this.props.updateSets(id, selectedSetsIndex, formData);
+      this.handleClose();
+    } else {
+      // 추가
+      this.props.addSets(id, formData);
+      this.handleClose();
     }
   };
   render() {
@@ -131,7 +146,11 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     closeSetsForm: () => dispatch(closeSetsForm()),
     changeSetsValue: (name: string, value: string) =>
-      dispatch(changeSetsValue(name, value))
+      dispatch(changeSetsValue(name, value)),
+    addSets: (workoutId: any, setsData: SetsDataType) =>
+      dispatch(addSets(workoutId, setsData)),
+    updateSets: (workoutId: any, setsIndex: number, setsData: SetsDataType) =>
+      dispatch(updateSets(workoutId, setsIndex, setsData))
   };
 };
 

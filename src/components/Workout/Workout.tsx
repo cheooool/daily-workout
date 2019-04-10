@@ -13,7 +13,7 @@ import { MoreVert, Edit, Delete } from '@material-ui/icons';
 import { WorkoutType } from '../../types/workout';
 
 import Sets from './Sets';
-import { deleteWorkout } from '../../actions/workout';
+import { deleteWorkout, deleteSets } from '../../actions/workout';
 import { openSetsAddForm, openSetsUpdateForm } from '../../actions/setsForm';
 
 interface IWorkoutProps {
@@ -21,6 +21,7 @@ interface IWorkoutProps {
   deleteWorkout: (workout: WorkoutType) => void;
   openSetsAddForm: (workout: WorkoutType) => void;
   openSetsUpdateForm: (selectedIndex: number, workout: WorkoutType) => void;
+  deleteSets: (workoutId: any, setsIndex: number) => void;
   handleOpenUpdateForm: (workout: WorkoutType) => void;
 }
 
@@ -57,6 +58,10 @@ class Workout extends Component<IWorkoutProps> {
 
   handleOpenSetsUpdateForm = (selectedIndex: number) => {
     this.props.openSetsUpdateForm(selectedIndex, this.props.data);
+  };
+
+  handleDeleteSets = (setsIndex: number) => {
+    this.props.deleteSets(this.props.data.id, setsIndex);
   };
 
   render() {
@@ -105,6 +110,7 @@ class Workout extends Component<IWorkoutProps> {
           data={data.sets || []}
           handleOpenSetsAddForm={this.handleOpenSetsAddForm}
           handleOpenSetsUpdateForm={this.handleOpenSetsUpdateForm}
+          handleDeleteSets={this.handleDeleteSets}
         />
       </>
     );
@@ -125,7 +131,9 @@ const mapDispatchToProps = (dispatch: any) => {
     openSetsAddForm: (workout: WorkoutType) =>
       dispatch(openSetsAddForm(workout)),
     openSetsUpdateForm: (selectedIndex: number, workout: WorkoutType) =>
-      dispatch(openSetsUpdateForm(selectedIndex, workout))
+      dispatch(openSetsUpdateForm(selectedIndex, workout)),
+    deleteSets: (workoutId: any, setsIndex: number) =>
+      dispatch(deleteSets(workoutId, setsIndex))
   };
 };
 

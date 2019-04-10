@@ -17,13 +17,15 @@ interface ISetsProps {
   data: SetsListType;
   handleOpenSetsAddForm: () => void;
   handleOpenSetsUpdateForm: (selectedIndex: number) => void;
+  handleDeleteSets: (setsIndex: number) => void;
 }
 
 const Sets: FunctionComponent<ISetsProps> = ({
   type,
   data,
   handleOpenSetsAddForm,
-  handleOpenSetsUpdateForm
+  handleOpenSetsUpdateForm,
+  handleDeleteSets
 }) => {
   return (
     <Paper>
@@ -42,17 +44,7 @@ const Sets: FunctionComponent<ISetsProps> = ({
           </TableRow>
         </TableHead>
         <TableBody>
-          <TableRow>
-            <TableCell style={tableCellStyles} align="center">
-              {data.length + 1}
-            </TableCell>
-            <TableCell style={tableCellStyles} align="center" colSpan={2}>
-              <Button fullWidth={true} onClick={handleOpenSetsAddForm}>
-                <Add fontSize="small" color="primary" />
-              </Button>
-            </TableCell>
-          </TableRow>
-          {data.reverse().map((row, index) => {
+          {data.map((row, index) => {
             return (
               <TableRow key={index}>
                 <TableCell
@@ -61,7 +53,7 @@ const Sets: FunctionComponent<ISetsProps> = ({
                   scope="row"
                   align="center"
                 >
-                  {data.length - index}
+                  {index + 1}
                 </TableCell>
                 <TableCell
                   style={tableCellStyles}
@@ -87,13 +79,30 @@ const Sets: FunctionComponent<ISetsProps> = ({
                   <IconButton onClick={() => handleOpenSetsUpdateForm(index)}>
                     <Edit fontSize="small" color="primary" />
                   </IconButton>
-                  <IconButton>
+                  <IconButton
+                    onClick={() =>
+                      confirm(
+                        `${data.length - index}번 세트를 삭제하시겠습니까?`
+                      ) && handleDeleteSets(index)
+                    }
+                  >
                     <Close fontSize="small" color="secondary" />
                   </IconButton>
                 </TableCell>
               </TableRow>
             );
           })}
+
+          <TableRow>
+            <TableCell style={tableCellStyles} align="center">
+              {data.length + 1}
+            </TableCell>
+            <TableCell style={tableCellStyles} align="center" colSpan={2}>
+              <Button fullWidth={true} onClick={handleOpenSetsAddForm}>
+                <Add fontSize="small" color="primary" />
+              </Button>
+            </TableCell>
+          </TableRow>
         </TableBody>
       </Table>
     </Paper>
