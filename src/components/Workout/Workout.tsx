@@ -13,11 +13,15 @@ import { MoreVert, Edit, Delete } from '@material-ui/icons';
 import { WorkoutType } from '../../types/workout';
 
 import Sets from './Sets';
-import { deleteWorkout } from '../../actions/workout';
+import { deleteWorkout, deleteSets } from '../../actions/workout';
+import { openSetsAddForm, openSetsUpdateForm } from '../../actions/setsForm';
 
 interface IWorkoutProps {
   data: WorkoutType;
   deleteWorkout: (workout: WorkoutType) => void;
+  openSetsAddForm: (workout: WorkoutType) => void;
+  openSetsUpdateForm: (selectedIndex: number, workout: WorkoutType) => void;
+  deleteSets: (workoutId: any, setsIndex: number) => void;
   handleOpenUpdateForm: (workout: WorkoutType) => void;
 }
 
@@ -48,13 +52,25 @@ class Workout extends Component<IWorkoutProps> {
     this.handleClose();
   };
 
+  handleOpenSetsAddForm = () => {
+    this.props.openSetsAddForm(this.props.data);
+  };
+
+  handleOpenSetsUpdateForm = (selectedIndex: number) => {
+    this.props.openSetsUpdateForm(selectedIndex, this.props.data);
+  };
+
+  handleDeleteSets = (setsIndex: number) => {
+    this.props.deleteSets(this.props.data.id, setsIndex);
+  };
+
   render() {
     const { data } = this.props;
     const { anchorEl } = this.state;
     const open = !!anchorEl;
 
     return (
-      <WorkoutWrapper>
+      <>
         <WorkoutHeader>
           <span>{data.parts || '기타'}</span>
           <WorkoutName>{data.name}</WorkoutName>
@@ -77,27 +93,29 @@ class Workout extends Component<IWorkoutProps> {
               disabled={data.sets && data.sets.length > 0}
             >
               <ListItemIcon>
-                <Edit />
+                <Edit color="primary" />
               </ListItemIcon>
-              <Typography variant="inherit">수정</Typography>
+              <Typography variant="body1">Edit</Typography>
             </MenuItem>
             <MenuItem onClick={this.handleDelete}>
               <ListItemIcon>
-                <Delete />
+                <Delete color="secondary" />
               </ListItemIcon>
-              <Typography variant="inherit">삭제</Typography>
+              <Typography variant="body1">Delete</Typography>
             </MenuItem>
           </Menu>
         </WorkoutHeader>
-        <Sets type={data.type} data={data.sets || []} />
-      </WorkoutWrapper>
+        <Sets
+          type={data.type}
+          data={data.sets || []}
+          handleOpenSetsAddForm={this.handleOpenSetsAddForm}
+          handleOpenSetsUpdateForm={this.handleOpenSetsUpdateForm}
+          handleDeleteSets={this.handleDeleteSets}
+        />
+      </>
     );
   }
 }
-
-const WorkoutWrapper = styled.div`
-  padding: 1em;
-`;
 const WorkoutHeader = styled.div`
   display: flex;
   align-items: center;
@@ -109,7 +127,13 @@ const WorkoutName = styled.strong`
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    deleteWorkout: (workout: WorkoutType) => dispatch(deleteWorkout(workout))
+    deleteWorkout: (workout: WorkoutType) => dispatch(deleteWorkout(workout)),
+    openSetsAddForm: (workout: WorkoutType) =>
+      dispatch(openSetsAddForm(workout)),
+    openSetsUpdateForm: (selectedIndex: number, workout: WorkoutType) =>
+      dispatch(openSetsUpdateForm(selectedIndex, workout)),
+    deleteSets: (workoutId: any, setsIndex: number) =>
+      dispatch(deleteSets(workoutId, setsIndex))
   };
 };
 
