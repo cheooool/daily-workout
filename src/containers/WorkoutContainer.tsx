@@ -8,6 +8,7 @@ import { Add } from '@material-ui/icons';
 import Template from '../layouts/Template';
 import WorkoutList from '../components/Workout/WorkoutList';
 import WorkoutForm from '../components/Workout/WorkoutForm';
+import SetsForm from '../components/Workout/SetsForm';
 
 interface IWorkoutContainerProps {
   workoutList: WorkoutListType;
@@ -54,6 +55,7 @@ class WorkoutContainer extends Component<IWorkoutContainerProps> {
             onClose={this.handleCloseWorkoutForm}
             formData={this.state.formData}
           />
+          <SetsForm />
         </WorkoutContainerWrapper>
       </Template>
     );

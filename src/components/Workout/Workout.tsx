@@ -14,10 +14,13 @@ import { WorkoutType } from '../../types/workout';
 
 import Sets from './Sets';
 import { deleteWorkout } from '../../actions/workout';
+import { openSetsAddForm, openSetsUpdateForm } from '../../actions/setsForm';
 
 interface IWorkoutProps {
   data: WorkoutType;
   deleteWorkout: (workout: WorkoutType) => void;
+  openSetsAddForm: (workout: WorkoutType) => void;
+  openSetsUpdateForm: (selectedIndex: number, workout: WorkoutType) => void;
   handleOpenUpdateForm: (workout: WorkoutType) => void;
 }
 
@@ -46,6 +49,14 @@ class Workout extends Component<IWorkoutProps> {
       this.props.deleteWorkout(this.props.data);
     }
     this.handleClose();
+  };
+
+  handleOpenSetsAddForm = () => {
+    this.props.openSetsAddForm(this.props.data);
+  };
+
+  handleOpenSetsUpdateForm = (selectedIndex: number) => {
+    this.props.openSetsUpdateForm(selectedIndex, this.props.data);
   };
 
   render() {
@@ -89,7 +100,12 @@ class Workout extends Component<IWorkoutProps> {
             </MenuItem>
           </Menu>
         </WorkoutHeader>
-        <Sets type={data.type} data={data.sets || []} />
+        <Sets
+          type={data.type}
+          data={data.sets || []}
+          handleOpenSetsAddForm={this.handleOpenSetsAddForm}
+          handleOpenSetsUpdateForm={this.handleOpenSetsUpdateForm}
+        />
       </>
     );
   }
@@ -105,7 +121,11 @@ const WorkoutName = styled.strong`
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    deleteWorkout: (workout: WorkoutType) => dispatch(deleteWorkout(workout))
+    deleteWorkout: (workout: WorkoutType) => dispatch(deleteWorkout(workout)),
+    openSetsAddForm: (workout: WorkoutType) =>
+      dispatch(openSetsAddForm(workout)),
+    openSetsUpdateForm: (selectedIndex: number, workout: WorkoutType) =>
+      dispatch(openSetsUpdateForm(selectedIndex, workout))
   };
 };
 

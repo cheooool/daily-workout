@@ -3,7 +3,7 @@ export type WorkoutType = {
   parts?: string;
   name: string;
   type: WorkoutCheckboxListType;
-  sets?: SetsType;
+  sets?: SetsListType;
   createdAt?: any;
 };
 
@@ -17,9 +17,11 @@ export type WorkoutCheckboxType = {
 
 export type WorkoutCheckboxListType = WorkoutCheckboxType[];
 
-export type SetsType = {
+export type SetsDataType = {
   [key: string]: any;
-}[];
+};
+
+export type SetsListType = SetsDataType[];
 
 export type RequestWorkoutActionType = {
   type: string;

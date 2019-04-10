@@ -9,15 +9,22 @@ import {
   IconButton,
   Button
 } from '@material-ui/core';
-import { SetsType, WorkoutCheckboxListType } from '../../types/workout';
+import { SetsListType, WorkoutCheckboxListType } from '../../types/workout';
 import { Add, Close, Edit } from '@material-ui/icons';
 
 interface ISetsProps {
   type: WorkoutCheckboxListType;
-  data: SetsType;
+  data: SetsListType;
+  handleOpenSetsAddForm: () => void;
+  handleOpenSetsUpdateForm: (selectedIndex: number) => void;
 }
 
-const Sets: FunctionComponent<ISetsProps> = ({ type, data }) => {
+const Sets: FunctionComponent<ISetsProps> = ({
+  type,
+  data,
+  handleOpenSetsAddForm,
+  handleOpenSetsUpdateForm
+}) => {
   return (
     <Paper>
       <Table style={{ tableLayout: 'fixed' }}>
@@ -40,7 +47,7 @@ const Sets: FunctionComponent<ISetsProps> = ({ type, data }) => {
               {data.length + 1}
             </TableCell>
             <TableCell style={tableCellStyles} align="center" colSpan={2}>
-              <Button fullWidth={true}>
+              <Button fullWidth={true} onClick={handleOpenSetsAddForm}>
                 <Add fontSize="small" color="primary" />
               </Button>
             </TableCell>
@@ -77,7 +84,7 @@ const Sets: FunctionComponent<ISetsProps> = ({ type, data }) => {
                   })}
                 </TableCell>
                 <TableCell style={tableCellStyles}>
-                  <IconButton>
+                  <IconButton onClick={() => handleOpenSetsUpdateForm(index)}>
                     <Edit fontSize="small" color="primary" />
                   </IconButton>
                   <IconButton>
