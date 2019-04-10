@@ -110,8 +110,9 @@ const Sets: FunctionComponent<ISetsProps> = ({
 };
 
 // 임시 스타일 추후 @material-ui/styles 추가하여 스타일 작업 필요
-const tableCellStyles = {
-  padding: '0'
+const tableCellStyles: React.CSSProperties = {
+  padding: 0,
+  textAlign: 'center'
 };
 
 export default Sets;
