@@ -98,7 +98,12 @@ class SetsForm extends Component<ISetsFromProps> {
           <Button color="secondary" fullWidth={true} onClick={this.handleClose}>
             취소
           </Button>
-          <Button variant="contained" color="primary" fullWidth={true} onClick={this.handleSubmit}>
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth={true}
+            onClick={this.handleSubmit}
+          >
             {selectedSetsIndex !== -1 ? '수정' : '추가'}
           </Button>
         </DialogActions>
