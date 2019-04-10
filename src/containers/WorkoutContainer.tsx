@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { WorkoutListType, WorkoutType } from '../types/workout';
 
 import styled from 'styled-components';
-import { Fab } from '@material-ui/core';
+import { Fab, Typography } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
+import moment from 'moment';
 
 import Template from '../layouts/Template';
 import WorkoutList from '../components/Workout/WorkoutList';
@@ -36,6 +37,14 @@ class WorkoutContainer extends Component<IWorkoutContainerProps> {
     return (
       <Template>
         <WorkoutContainerWrapper>
+          <Typography
+            variant="display1"
+            align="center"
+            color="textPrimary"
+            style={{ margin: '0.5em 0' }}
+          >
+            {moment().format('YYYY.MM.DD')}
+          </Typography>
           <WorkoutList
             list={workoutList}
             handleOpenUpdateForm={this.handleOpenUpdateForm}
