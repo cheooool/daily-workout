@@ -33,9 +33,10 @@ const WorkoutList: FunctionComponent<IWorkoutListProps> = ({
 };
 
 const List = styled.ul`
-  list-style: none;
-  margin: 0;
+  max-width: 640px;
+  margin: 0 auto;
   padding: 0;
+  list-style: none;
 `;
 
 const ListItem = styled.li`
