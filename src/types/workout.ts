@@ -43,7 +43,35 @@ export type UpdateWorkoutActionType = {
   payload: WorkoutType;
 };
 
+export type AddSetsActionType = {
+  type: string;
+  payload: {
+    workoutId: any;
+    setsData: SetsDataType;
+  };
+};
+
+export type UpdateSetsActionType = {
+  type: string;
+  payload: {
+    workoutId: any;
+    setsIndex: number;
+    setsData: SetsDataType;
+  };
+};
+
+export type DeleteSetsActionType = {
+  type: string;
+  payload: {
+    workoutId: any;
+    setsIndex: number;
+  };
+};
+
 export type WorkoutActionTypes =
+  | AddSetsActionType
+  | UpdateSetsActionType
+  | DeleteSetsActionType
   | RequestWorkoutActionType
   | AddWorkoutActionType
   | DeleteWorkoutActionType
