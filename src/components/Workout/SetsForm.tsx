@@ -101,6 +101,7 @@ class SetsForm extends Component<ISetsFromProps> {
               return (
                 <TextField
                   key={index}
+                  type="number"
                   label={value.label}
                   fullWidth={true}
                   name={value.name}
