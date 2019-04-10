@@ -2,7 +2,7 @@
   "name": "daily-workout-react",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://g.cheooool.github.io/daily-workout",
+  "homepage": "http://cheooool.github.io/daily-workout",
   "dependencies": {
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
