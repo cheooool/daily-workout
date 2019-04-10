@@ -54,7 +54,7 @@ class Workout extends Component<IWorkoutProps> {
     const open = !!anchorEl;
 
     return (
-      <WorkoutWrapper>
+      <>
         <WorkoutHeader>
           <span>{data.parts || '기타'}</span>
           <WorkoutName>{data.name}</WorkoutName>
@@ -77,27 +77,23 @@ class Workout extends Component<IWorkoutProps> {
               disabled={data.sets && data.sets.length > 0}
             >
               <ListItemIcon>
-                <Edit />
+                <Edit color="primary" />
               </ListItemIcon>
-              <Typography variant="inherit">수정</Typography>
+              <Typography variant="body1">Edit</Typography>
             </MenuItem>
             <MenuItem onClick={this.handleDelete}>
               <ListItemIcon>
-                <Delete />
+                <Delete color="secondary" />
               </ListItemIcon>
-              <Typography variant="inherit">삭제</Typography>
+              <Typography variant="body1">Delete</Typography>
             </MenuItem>
           </Menu>
         </WorkoutHeader>
         <Sets type={data.type} data={data.sets || []} />
-      </WorkoutWrapper>
+      </>
     );
   }
 }
-
-const WorkoutWrapper = styled.div`
-  padding: 1em;
-`;
 const WorkoutHeader = styled.div`
   display: flex;
   align-items: center;
