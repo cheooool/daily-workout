@@ -61,7 +61,7 @@ class WorkoutContainer extends Component<IWorkoutContainerProps> {
 }
 
 const WorkoutContainerWrapper = styled.div`
-  margin-bottom: 40px;
+  margin-bottom: 4em;
 `;
 
 const AddButton = styled.div`
