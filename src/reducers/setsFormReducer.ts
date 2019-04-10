@@ -43,8 +43,8 @@ const setsFormReducer = (
       };
     case OPEN_SETS_UPDATE_FORM:
       const selectedIdx = action.payload.index;
-      workoutData = action.payload.workoutData;
-      formData = workoutData.sets ? workoutData.sets[selectedIdx] : {};
+      workoutData = { ...action.payload.workoutData };
+      formData = workoutData.sets ? { ...workoutData.sets[selectedIdx] } : {};
 
       return {
         selectedSetsIndex: action.payload.index,
@@ -55,6 +55,7 @@ const setsFormReducer = (
     case CLOSE_SETS_FORM:
       return {
         ...state,
+        formData: {},
         isOpen: false
       };
     case CHANGE_SETS_VALUE:
